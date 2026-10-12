@@ -7,7 +7,9 @@ defaults:
       path: "_posts"
     values:
       layout: post
-      
+
+markdown: kramdown
+
 kramdown:
   math_engine: null
 
