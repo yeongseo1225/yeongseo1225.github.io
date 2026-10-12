@@ -10,7 +10,7 @@ share: true
 ---
 
 ### 다층 퍼셉트론(Multilayer Perceptron, MLP)
-![[Pasted image 20261008224500.png|Pasted image 20261008224500.png]]
+   ![](/assets/images/Pasted%20image%2020261008224500.png)
 - 퍼셉트론 : 입력에 가중치를 곱해 더하고, 활성화 함수를 통과시켜 0 또는 1을 출력하는 가장 작은 신경망 단위.
 - 단층 퍼셉트론의 한계 : 직선 하나로만 데이터를 나눌 수 있어서 **XOR 문제(비선형 문제)를 풀지 못함.**
   
