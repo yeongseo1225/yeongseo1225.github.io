@@ -11,6 +11,7 @@ title: Home
     <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
     <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
     {% if post.categories.size > 0 %}<small>{{ post.categories | join: " · " }}</small>{% endif %}
+    {% if post.tags.size > 0 %}<small>{% for tag in post.tags %}#{{ tag }} {% endfor %}</small>{% endif %}
   </li>
 {% endfor %}
 </ul>
