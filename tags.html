@@ -1,0 +1,29 @@
+---
+layout: default
+title: 태그
+permalink: /tags/
+---
+
+<h1>태그</h1>
+
+{% assign sorted_tags = site.tags | sort %}
+
+<p>
+  {% for tag in sorted_tags %}
+    <a href="#{{ tag[0] | slugify }}">#{{ tag[0] }} ({{ tag[1].size }})</a>
+  {% endfor %}
+</p>
+
+{% for tag in sorted_tags %}
+  <section id="{{ tag[0] | slugify }}">
+    <h2>#{{ tag[0] }}</h2>
+    <ul>
+      {% for post in tag[1] %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
