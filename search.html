@@ -1,0 +1,23 @@
+---
+layout: page
+title: 검색
+permalink: /search/
+---
+
+<p>글 제목, 본문, 태그, 카테고리를 검색할 수 있어요.</p>
+
+<input
+  id="site-search"
+  type="search"
+  placeholder="검색어를 입력하세요"
+  aria-label="블로그 검색"
+>
+
+<p id="search-status">검색어를 입력해 주세요.</p>
+
+<div
+  id="search-results"
+  data-index-url="{{ '/search-index.json' | relative_url }}">
+</div>
+
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
