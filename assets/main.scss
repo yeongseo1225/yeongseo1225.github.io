@@ -109,3 +109,23 @@ mark {
   padding: 0 0.15em;
   border-radius: 0.15em;
 }
+
+#site-search {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.search-result {
+  margin: 20px 0;
+}
+
+.search-result p {
+  margin: 4px 0;
+  color: #777;
+  font-size: 0.9em;
+}
