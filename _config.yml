@@ -12,6 +12,7 @@ header_pages:
   - index.md
   - categories.html
   - tags.html
+  - search.html
 
 markdown: kramdown
 
