@@ -5,13 +5,30 @@ title: Home
 
 <h1>최근 글</h1>
 
-<ul class="post-list">
-{% for post in site.posts %}
-  <li>
-    <span class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</span>
-    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-    {% if post.categories.size > 0 %}<small>{{ post.categories | join: " · " }}</small>{% endif %}
-    {% if post.tags.size > 0 %}<small>{% for tag in post.tags %}#{{ tag }} {% endfor %}</small>{% endif %}
-  </li>
-{% endfor %}
-</ul>
+<div class="post-list">
+  {% for post in site.posts %}
+    <article class="post-card">
+      <h2 class="post-card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      </h2>
+
+      <p class="post-card-excerpt">
+        {{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}
+      </p>
+
+      <div class="post-card-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          <span aria-hidden="true">▢</span>
+          {{ post.date | date: "%b %-d, %Y" }}
+        </time>
+
+        {% if post.categories.size > 0 %}
+          <span class="post-card-categories">
+            <span aria-hidden="true">▱</span>
+            {{ post.categories | join: ", " }}
+          </span>
+        {% endif %}
+      </div>
+    </article>
+  {% endfor %}
+</div>
