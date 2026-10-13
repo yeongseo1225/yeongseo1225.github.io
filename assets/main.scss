@@ -135,8 +135,12 @@ html {
 
 body {
   color: #263238;
-  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-    "Malgun Gothic", sans-serif;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Malgun Gothic",
+    sans-serif;
   line-height: 1.8;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -157,7 +161,7 @@ body {
   color: #64748b;
 }
 
-/* 본문: 기본 18px, 넉넉한 행간 */
+/* 본문 */
 .post-content {
   font-size: 1rem;
   line-height: 1.9;
@@ -168,7 +172,7 @@ body {
   margin: 0 0 1.25em;
 }
 
-/* 본문 제목은 본문보다 크게, 단계별로 구분 */
+/* 본문 제목 */
 .post-content h2,
 .post-content h3,
 .post-content h4,
@@ -288,6 +292,64 @@ body {
   padding: 0.4em 0;
 }
 
+/* 홈 최근 글 목록 */
+.post-list {
+  margin-top: 2rem;
+}
+
+.post-card {
+  padding: 0 0 1.6rem;
+  margin: 0 0 1.6rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.post-card-title {
+  margin: 0 0 0.65rem;
+  font-size: 1.55rem;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+.post-card-title a {
+  color: #304b9a;
+  text-decoration: none;
+}
+
+.post-card-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.post-card-excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0 0 1rem;
+  color: #64748b;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.post-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.post-card-meta time,
+.post-card-categories {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.post-card-meta [aria-hidden="true"] {
+  color: #7b8794;
+}
+
 /* 작은 화면 글자와 제목 크기 */
 @media screen and (max-width: 700px) {
   html {
@@ -316,5 +378,17 @@ body {
 
   .post-content h5 {
     font-size: 1.05rem;
+  }
+
+  .post-card-title {
+    font-size: 1.3rem;
+  }
+
+  .post-card-excerpt {
+    font-size: 1rem;
+  }
+
+  .post-card-meta {
+    font-size: 0.85rem;
   }
 }
