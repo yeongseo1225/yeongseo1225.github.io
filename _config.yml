@@ -15,6 +15,9 @@ header_pages:
   - search.html
 
 markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: null
 
 kramdown:
   math_engine: null
