@@ -113,6 +113,14 @@ mark {
   font: inherit;
 }
 
+ol {
+  list-style-type: decimal;
+}
+
+ol li {
+  list-style-type: decimal;
+}
+
 .search-result {
   margin: 20px 0;
 }
