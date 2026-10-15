@@ -113,12 +113,21 @@ mark {
   font: inherit;
 }
 
-ol {
+/* 순서 있는 목록 */
+.post-content ol {
   list-style-type: decimal;
+  counter-reset: none;
 }
 
-ol li {
-  list-style-type: decimal;
+/* 순서 없는 목록 */
+.post-content ul {
+  list-style-type: disc;
+}
+
+/* 목록 항목 번호 */
+.post-content ol > li {
+  display: list-item;
+  counter-increment: list-item;
 }
 
 .search-result {
