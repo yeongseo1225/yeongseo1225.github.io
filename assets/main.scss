@@ -428,3 +428,40 @@ body {
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+
+.category-section {
+  scroll-margin-top: 1.5rem;
+}
+
+.category-title {
+  margin: 2rem 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 1.6rem;
+}
+
+.category-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.category-title a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.post-card-read-more {
+  margin: 0.75rem 0 0;
+  text-align: right;
+}
+
+.post-card-read-more a {
+  color: #304b9a;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-card-read-more a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
