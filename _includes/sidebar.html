@@ -10,7 +10,12 @@
     {% for parent in category_names %} {% assign has_children = false %} {% for
     category in site.categories %} {% assign parts = category[0] | split: "/" %}
     {% if parts.size > 1 and parts[0] == parent %} {% assign has_children = true
-    %} {% endif %} {% endfor %}
+    %} {% endif %} {% endfor %} {% assign parent_post_urls = "" | split: "" %}
+    {% for category in site.categories %} {% assign parts = category[0] | split:
+    "/" %} {% if parts[0] == parent %} {% for post in category[1] %} {% assign
+    parent_post_urls = parent_post_urls | push: post.url %} {% endfor %} {%
+    endif %} {% endfor %} {% assign parent_post_count = parent_post_urls | uniq
+    | size %}
 
     <li>
       {% if has_children %}
@@ -19,8 +24,10 @@
           <a
             href="{{ '/categories/' | relative_url }}#{{ parent | slugify }}"
             data-category="{{ parent | escape }}"
-            >{{ parent }}</a
           >
+            {{ parent }}
+            <span>({{ parent_post_count }})</span>
+          </a>
         </summary>
 
         <ul>

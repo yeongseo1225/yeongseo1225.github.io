@@ -4,13 +4,12 @@ theme: minima
 
 defaults:
   - scope:
-      path: "_posts"
+      path: '_posts'
     values:
       layout: post
-      
+
 header_pages:
   - index.md
-  - categories.html
   - tags.html
   - search.html
 
@@ -20,8 +19,8 @@ kramdown:
   input: GFM
   math_engine: null
 
-url: "https://yeongseo1225.github.io"
-baseurl: ""
+url: 'https://yeongseo1225.github.io'
+baseurl: ''
 
 plugins:
   - jekyll-sitemap

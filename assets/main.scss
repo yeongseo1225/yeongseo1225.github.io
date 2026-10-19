@@ -491,3 +491,42 @@ body {
   outline: 3px solid #304b9a;
   outline-offset: -3px;
 }
+
+.category-tree summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+}
+
+.category-tree summary::-webkit-details-marker {
+  display: none;
+}
+
+.category-page-heading {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.category-page-breadcrumb {
+  margin: 0 0 0.25rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.category-page-breadcrumb a {
+  color: #64748b;
+  text-decoration: none;
+}
+
+.category-page-breadcrumb a:hover {
+  color: #304b9a;
+  text-decoration: underline;
+}
+
+.category-page-title {
+  margin: 0;
+  color: #172b4d;
+  font-size: 2rem;
+  line-height: 1.3;
+}

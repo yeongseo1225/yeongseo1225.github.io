@@ -4,7 +4,10 @@ title: 카테고리
 permalink: /categories/
 ---
 
-<h1>카테고리</h1>
+<header class="category-page-heading">
+  <p class="category-page-breadcrumb" hidden></p>
+  <h1 class="category-page-title">카테고리</h1>
+</header>
 
 {% assign sorted_categories = site.categories | sort %}
 
@@ -47,7 +50,9 @@ permalink: /categories/
             ></path>
             <path d="M3 10h18"></path>
           </svg>
-          {{ post.categories | join: ", " }}
+          {% for post_category in post.categories %} {% assign category_parts =
+          post_category | split: "/" %} {{ category_parts | last }}{% unless
+          forloop.last %}, {% endunless %} {% endfor %}
         </span>
         {% endif %}
       </div>
@@ -63,27 +68,142 @@ permalink: /categories/
     const categoryLinks = Array.from(
       document.querySelectorAll('.sidebar [data-category]'),
     );
+    const list = document.querySelector('.category-post-list');
+    const pageTitle = document.querySelector('.category-page-title');
+    const breadcrumb = document.querySelector('.category-page-breadcrumb');
+    let aggregateSection = null;
 
-    function showSelectedCategory() {
+    function showSelectedCategory(categoryOverride = '') {
       const selectedId = decodeURIComponent(window.location.hash.slice(1));
+
       const linkedCategory = categoryLinks.find(
         (link) => decodeURIComponent(link.hash.slice(1)) === selectedId,
       );
+
       const selectedCategory =
+        categoryOverride ||
         linkedCategory?.dataset.category ||
         sections.find((section) => section.id === selectedId)?.dataset
           .category ||
         '';
+
+      if (!selectedCategory) {
+        pageTitle.textContent = '카테고리';
+        breadcrumb.hidden = true;
+        breadcrumb.replaceChildren();
+      } else if (selectedCategory.includes('/')) {
+        const [parent, ...childParts] = selectedCategory.split('/');
+        const parentLink = document.createElement('a');
+        const parentLinkSource = categoryLinks.find(
+          (link) => link.dataset.category === parent,
+        );
+
+        parentLink.href =
+          parentLinkSource?.href || "{{ '/categories/' | relative_url }}";
+        parentLink.dataset.category = parent;
+        parentLink.textContent = parent;
+
+        breadcrumb.replaceChildren(parentLink);
+
+        breadcrumb.hidden = false;
+        pageTitle.textContent = childParts.join('/');
+      } else {
+        breadcrumb.replaceChildren();
+        breadcrumb.hidden = true;
+        pageTitle.textContent = selectedCategory;
+      }
+
+      if (aggregateSection) {
+        aggregateSection.remove();
+        aggregateSection = null;
+      }
+
+      const descendants = selectedCategory
+        ? sections.filter((section) =>
+            section.dataset.category.startsWith(`${selectedCategory}/`),
+          )
+        : [];
+
+      if (descendants.length > 0) {
+        aggregateSection = document.createElement('section');
+        aggregateSection.className = 'category-aggregate';
+
+        const matchingSections = sections.filter(
+          (section) =>
+            section.dataset.category === selectedCategory ||
+            section.dataset.category.startsWith(`${selectedCategory}/`),
+        );
+
+        const seenPosts = new Set();
+
+        matchingSections.forEach((section) => {
+          section.querySelectorAll('.post-card').forEach((card) => {
+            const postUrl = card.querySelector('.post-card-title a')?.href;
+
+            if (!postUrl || seenPosts.has(postUrl)) {
+              return;
+            }
+
+            seenPosts.add(postUrl);
+            aggregateSection.appendChild(card.cloneNode(true));
+          });
+        });
+
+        list.appendChild(aggregateSection);
+      }
+
       sections.forEach((section) => {
-        const category = section.dataset.category;
         section.hidden =
-          Boolean(selectedCategory) &&
-          category !== selectedCategory &&
-          !category.startsWith(`${selectedCategory}/`);
+          descendants.length > 0 ||
+          (Boolean(selectedCategory) &&
+            section.dataset.category !== selectedCategory);
+
+        const sectionTitle = section.querySelector('.category-title');
+        if (sectionTitle) {
+          sectionTitle.hidden = Boolean(selectedCategory);
+        }
       });
     }
 
-    window.addEventListener('hashchange', showSelectedCategory);
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest(
+        '.category-page-breadcrumb [data-category]',
+      );
+
+      if (!link) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (window.location.hash !== link.hash) {
+        window.location.hash = link.hash;
+      }
+
+      showSelectedCategory(link.dataset.category);
+    });
+
+    categoryLinks.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (
+          window.location.pathname.replace(/\/$/, '') !==
+          "{{ '/categories' | relative_url }}"
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (window.location.hash !== link.hash) {
+          window.location.hash = link.hash;
+        }
+
+        showSelectedCategory(link.dataset.category);
+      });
+    });
+
+    window.addEventListener('hashchange', () => showSelectedCategory());
     showSelectedCategory();
   })();
 </script>
