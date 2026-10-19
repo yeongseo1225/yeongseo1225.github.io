@@ -10,59 +10,80 @@ permalink: /categories/
 
 <div class="post-list category-post-list">
   {% for category in sorted_categories %}
-    <section class="category-section" id="{{ category[0] | slugify }}">
-      <h2 class="category-title">
-        <a href="#{{ category[0] | slugify }}">{{ category[0] | escape }}</a>
-      </h2>
+  <section
+    class="category-section"
+    id="{{ category[0] | slugify }}"
+    data-category="{{ category[0] | escape }}"
+  >
+    <h2 class="category-title">
+      <a href="#{{ category[0] | slugify }}">{{ category[0] | escape }}</a>
+    </h2>
 
-      {% assign posts = category[1] | sort: "date" | reverse %}
-      {% for post in posts %}
-        <article class="post-card">
-          <h3 class="post-card-title">
-            <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          </h3>
+    {% assign posts = category[1] | sort: "date" | reverse %} {% for post in
+    posts %}
+    <article class="post-card">
+      <h3 class="post-card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      </h3>
 
-          <p class="post-card-excerpt">
-            {{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}
-          </p>
+      <p class="post-card-excerpt">
+        {{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}
+      </p>
 
-          <div class="post-card-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">
-              <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
-                <path d="M16 3v4M8 3v4M3 10h18"></path>
-              </svg>
-              {{ post.date | date: "%b %-d, %Y" }}
-            </time>
+      <div class="post-card-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+            <path d="M16 3v4M8 3v4M3 10h18"></path>
+          </svg>
+          {{ post.date | date: "%b %-d, %Y" }}
+        </time>
 
-            {% if post.categories.size > 0 %}
-              <span class="post-card-categories">
-                <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  <path d="M3 10h18"></path>
-                </svg>
-                {{ post.categories | join: ", " }}
-              </span>
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
-    </section>
+        {% if post.categories.size > 0 %}
+        <span class="post-card-categories">
+          <svg class="meta-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+            ></path>
+            <path d="M3 10h18"></path>
+          </svg>
+          {{ post.categories | join: ", " }}
+        </span>
+        {% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </section>
   {% endfor %}
 </div>
 
 <script>
   (() => {
-    const sections = Array.from(document.querySelectorAll(".category-section"));
+    const sections = Array.from(document.querySelectorAll('.category-section'));
+    const categoryLinks = Array.from(
+      document.querySelectorAll('.sidebar [data-category]'),
+    );
 
     function showSelectedCategory() {
       const selectedId = decodeURIComponent(window.location.hash.slice(1));
+      const linkedCategory = categoryLinks.find(
+        (link) => decodeURIComponent(link.hash.slice(1)) === selectedId,
+      );
+      const selectedCategory =
+        linkedCategory?.dataset.category ||
+        sections.find((section) => section.id === selectedId)?.dataset
+          .category ||
+        '';
       sections.forEach((section) => {
-        section.hidden = Boolean(selectedId) && section.id !== selectedId;
+        const category = section.dataset.category;
+        section.hidden =
+          Boolean(selectedCategory) &&
+          category !== selectedCategory &&
+          !category.startsWith(`${selectedCategory}/`);
       });
     }
 
-    window.addEventListener("hashchange", showSelectedCategory);
+    window.addEventListener('hashchange', showSelectedCategory);
     showSelectedCategory();
   })();
 </script>
