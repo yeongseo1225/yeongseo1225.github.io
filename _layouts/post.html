@@ -1,23 +1,26 @@
 ---
 layout: default
 ---
+
 <article class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
     <p class="post-meta">
-      {{ page.date | date: "%Y-%m-%d" }}
-      {% if page.categories.size > 0 %} · {{ page.categories | join: " · " }}{% endif %}
+      {{ page.date | date: "%Y-%m-%d" }} {% if page.categories.size > 0 %} · {{
+      page.categories | join: " · " }}{% endif %}
     </p>
     {% if page.tags.size > 0 %}
-      <p>
-        {% for tag in page.tags %}
-          <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a>
-        {% endfor %}
-      </p>
+    <p>
+      {% for tag in page.tags %}
+      <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">#{{ tag }}</a>
+      {% endfor %}
+    </p>
     {% endif %}
   </header>
 
-  <div class="post-content">
-    {{ content }}
-  </div>
+  <div class="post-content">{{ content }}</div>
 </article>
+<script
+  src="{{ '/assets/js/youtube-thumbnails.js' | relative_url }}"
+  defer
+></script>

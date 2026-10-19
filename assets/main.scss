@@ -1,7 +1,7 @@
 ---
 ---
 
-@import "minima";
+@import 'minima';
 
 /* 전체 콘텐츠 폭 */
 .wrapper {
@@ -153,10 +153,7 @@ html {
 body {
   color: #263238;
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Apple SD Gothic Neo",
-    "Malgun Gothic",
+    -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
     sans-serif;
   line-height: 1.8;
   letter-spacing: -0.01em;
@@ -310,7 +307,7 @@ body {
 }
 
 /* 긴 수식은 본문 폭 안에서 가로 스크롤 */
-.post-content mjx-container[display="true"] {
+.post-content mjx-container[display='true'] {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -371,7 +368,7 @@ body {
   gap: 0.45rem;
 }
 
-.post-card-meta [aria-hidden="true"] {
+.post-card-meta [aria-hidden='true'] {
   color: #7b8794;
 }
 
@@ -418,16 +415,16 @@ body {
   }
 }
 
-  .post-card-meta .meta-icon {
-    width: 1.15em;
-    height: 1.15em;
-    flex: 0 0 auto;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
+.post-card-meta .meta-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
 .category-section {
   scroll-margin-top: 1.5rem;
@@ -448,4 +445,49 @@ body {
 .category-title a:hover {
   text-decoration: underline;
   text-underline-offset: 0.15em;
+}
+
+.youtube-thumbnail-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 1.5rem auto;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000;
+  line-height: 0;
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-thumbnail-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.youtube-thumbnail-link::after {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 68px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  color: #fff;
+  background: #e62117;
+  font-size: 1.35rem;
+  transform: translate(-50%, -50%);
+}
+
+.youtube-thumbnail-link:hover::after,
+.youtube-thumbnail-link:focus-visible::after {
+  background: #c91d14;
+}
+
+.youtube-thumbnail-link:focus-visible {
+  outline: 3px solid #304b9a;
+  outline-offset: -3px;
 }
