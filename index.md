@@ -3,9 +3,7 @@ layout: default
 title: Home
 ---
 
-<h1>최근 글</h1>
-
-<div class="post-list">
+<div class="post-list home-post-list">
   {% for post in site.posts %}
     <article class="post-card">
       <h2 class="post-card-title">
