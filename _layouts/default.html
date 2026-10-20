@@ -8,7 +8,7 @@
       <div class="wrapper site-layout">
         {% include sidebar.html %}
 
-        <div class="main-content">
+        <div class="main-content{% if page.layout == 'post' %} main-content-post{% endif %}">
           {{ content }}
         </div>
       </div>
