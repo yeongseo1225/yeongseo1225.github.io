@@ -126,6 +126,18 @@ mark {
   gap: 1.25rem;
 }
 
+.site-header .site-title {
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #475569;
+}
+
 .site-header-search {
   width: 240px;
   max-width: 240px;
