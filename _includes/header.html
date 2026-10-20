@@ -1,0 +1,19 @@
+<header class="site-header" role="banner">
+  <div class="wrapper site-header-inner">
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+
+    <form class="search-field site-header-search" id="search-form" action="{{ '/search/' | relative_url }}" method="get" role="search">
+      <svg class="search-field-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="10.8" cy="10.8" r="6.8"></circle>
+        <path d="m16 16 4.5 4.5"></path>
+      </svg>
+      <input
+        id="site-search"
+        name="q"
+        type="search"
+        aria-label="블로그 검색"
+        autocomplete="off"
+      >
+    </form>
+  </div>
+</header>

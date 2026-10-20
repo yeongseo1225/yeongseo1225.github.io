@@ -8,6 +8,8 @@ permalink: /search-index.json
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | relative_url | jsonify }},
     "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    "display_date": {{ post.date | date: "%b %-d, %Y" | jsonify }},
+    "excerpt": {{ post.excerpt | strip_html | normalize_whitespace | jsonify }},
     "content": {{ post.content | strip_html | jsonify }},
     "tags": {{ post.tags | jsonify }},
     "categories": {{ post.categories | jsonify }}

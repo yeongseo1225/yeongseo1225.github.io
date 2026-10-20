@@ -103,14 +103,97 @@ mark {
   border-radius: 0.15em;
 }
 
-#site-search {
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   box-sizing: border-box;
   width: 100%;
   max-width: 600px;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #fff;
+  color: #64748b;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.site-header-search {
+  width: 240px;
+  max-width: 240px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+.search-field:focus-within {
+  border-color: #526bb2;
+  box-shadow: 0 0 0 3px rgba(82, 107, 178, 0.14);
+}
+
+.search-field-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+#site-search {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #263238;
   font: inherit;
+}
+
+#site-search:focus {
+  outline: 0;
+}
+
+.search-results:empty {
+  margin-top: 0;
+}
+
+.search-empty {
+  color: #64748b;
+}
+
+.has-search-results .post-header {
+  display: none;
+}
+
+.search-result {
+  padding: 0 0 0.65rem;
+  margin: 0 0 0.65rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.post-content .search-result .post-card-title {
+  margin: 0 0 0.65rem;
+  font-size: 1.55rem;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  text-indent: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.post-content .search-result .post-card-excerpt {
+  margin: 0 0 1rem;
 }
 
 /* 순서 있는 목록 */
@@ -128,16 +211,6 @@ mark {
 .post-content ol > li {
   display: list-item;
   counter-increment: list-item;
-}
-
-.search-result {
-  margin: 20px 0;
-}
-
-.search-result p {
-  margin: 4px 0;
-  color: #777;
-  font-size: 0.9em;
 }
 
 .site-footer {
@@ -342,6 +415,13 @@ body {
   text-underline-offset: 0.15em;
 }
 
+.search-result .post-card-title a,
+.search-result .post-card-title a:hover,
+.search-result .post-card-title a:focus,
+.search-result .post-card-title a:visited {
+  text-decoration: none;
+}
+
 .post-card-excerpt {
   display: -webkit-box;
   overflow: hidden;
@@ -412,6 +492,17 @@ body {
 
   .post-card-meta {
     font-size: 0.85rem;
+  }
+
+  .site-header-inner {
+    flex-wrap: wrap;
+  }
+
+  .site-header-search {
+    order: 3;
+    max-width: none;
+    flex: 1 0 100%;
+    margin: 0 0 0.75rem;
   }
 }
 
