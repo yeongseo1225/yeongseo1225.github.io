@@ -9,8 +9,6 @@ defaults:
       layout: post
 
 header_pages:
-  - index.md
-  - tags.html
   - search.html
 
 markdown: kramdown
