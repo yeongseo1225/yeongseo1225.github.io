@@ -73,6 +73,12 @@ permalink: /categories/
     const breadcrumb = document.querySelector('.category-page-breadcrumb');
     let aggregateSection = null;
 
+    function setCategoryHash(hash) {
+      if (window.location.hash !== hash) {
+        window.history.pushState(null, '', hash);
+      }
+    }
+
     function showSelectedCategory(categoryOverride = '') {
       const selectedId = decodeURIComponent(window.location.hash.slice(1));
 
@@ -187,9 +193,7 @@ permalink: /categories/
 
       event.preventDefault();
 
-      if (window.location.hash !== link.hash) {
-        window.location.hash = link.hash;
-      }
+      setCategoryHash(link.hash);
 
       showSelectedCategory(link.dataset.category);
     });
@@ -206,15 +210,14 @@ permalink: /categories/
         event.preventDefault();
         event.stopPropagation();
 
-        if (window.location.hash !== link.hash) {
-          window.location.hash = link.hash;
-        }
+        setCategoryHash(link.hash);
 
         showSelectedCategory(link.dataset.category);
       });
     });
 
     window.addEventListener('hashchange', () => showSelectedCategory());
+    window.addEventListener('popstate', () => showSelectedCategory());
     showSelectedCategory();
   })();
 </script>
