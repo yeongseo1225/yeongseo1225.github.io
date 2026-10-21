@@ -87,6 +87,17 @@ permalink: /categories/
           .category ||
         '';
 
+      categoryLinks.forEach((link) => {
+        const isSelected = link.dataset.category === selectedCategory;
+        link.classList.toggle('is-selected', isSelected);
+
+        if (isSelected) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+
       if (!selectedCategory) {
         pageTitle.textContent = '카테고리';
         breadcrumb.hidden = true;

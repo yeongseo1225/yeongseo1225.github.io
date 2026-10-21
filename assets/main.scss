@@ -60,6 +60,11 @@
   text-decoration: none;
 }
 
+.category-tree a.is-selected {
+  color: #52688f;
+  font-weight: 600;
+}
+
 .category-tree a:hover {
   text-decoration: underline;
 }
@@ -712,9 +717,13 @@ body {
 }
 
 .category-page-heading {
-  margin-bottom: 2rem;
+  display: none;
+  margin-bottom: calc(2rem - 30px);
   padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+}
+
+.category-post-list {
+  margin-top: 0;
 }
 
 .category-page-breadcrumb {
