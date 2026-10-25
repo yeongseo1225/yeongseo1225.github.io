@@ -368,6 +368,10 @@ body {
   margin: 0 0 1.25em;
 }
 
+.post-content h5 + p {
+  margin-bottom: 0.4em;
+}
+
 /* 본문 제목 */
 .post-content h2,
 .post-content h3,
