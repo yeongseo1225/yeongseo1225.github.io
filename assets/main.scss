@@ -84,6 +84,12 @@
   max-width: none;
 }
 
+/* 목록 다음에 붙어 렌더링된 제목은 목록 표시를 숨겨 제목처럼 보이게 한다. */
+.post-content .post-list-heading-item {
+  list-style: none;
+  margin-left: -1.5em;
+}
+
 .post-page-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 205px;
