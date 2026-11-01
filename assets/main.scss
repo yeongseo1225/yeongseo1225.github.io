@@ -58,20 +58,28 @@
 
 .category-tree a {
   text-decoration: none;
+  transition: color 150ms ease;
+  font-weight: 500;
+}
+
+.category-tree summary a {
+  font-weight: 600;
 }
 
 .category-tree a.is-selected {
   color: #52688f;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .category-tree a:hover {
-  text-decoration: underline;
+  color: #000;
+  text-decoration: none;
 }
 
 .category-tree span {
   color: #888;
   font-size: 0.75rem;
+  font-weight: 400;
 }
 
 /* 오른쪽 게시글 */
@@ -694,11 +702,12 @@ body {
 .category-title a {
   color: inherit;
   text-decoration: none;
+  transition: color 150ms ease;
 }
 
 .category-title a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  color: #000;
+  text-decoration: none;
 }
 
 .youtube-thumbnail-link {
@@ -778,8 +787,8 @@ body {
 }
 
 .category-page-breadcrumb a:hover {
-  color: #304b9a;
-  text-decoration: underline;
+  color: #000;
+  text-decoration: none;
 }
 
 .category-page-title {
