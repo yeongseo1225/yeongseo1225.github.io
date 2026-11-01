@@ -29,7 +29,10 @@ title: Home
               <path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <path d="M3 10h18"></path>
             </svg>
-            {{ post.categories | join: ", " }}
+            {% for post_category in post.categories %}{% assign category_parts = post_category | split: "/" %}
+            <span class="post-card-category" data-category="{{ post_category | escape }}">
+              {% for category_part in category_parts %}{% unless forloop.first %}<span class="category-separator" aria-hidden="true">›</span>{% endunless %}<span class="category-part{% if forloop.last and category_parts.size > 1 %} category-child{% endif %}">{{ category_part | escape }}</span>{% endfor %}
+            </span>{% unless forloop.last %}<span class="category-list-separator" aria-hidden="true">,</span>{% endunless %}{% endfor %}
         </span>
         {% endif %}
       </div>

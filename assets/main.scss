@@ -581,6 +581,36 @@ body {
   gap: 0.45rem;
 }
 
+.post-card-categories {
+  flex-wrap: wrap;
+}
+
+.post-card-category {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.32em;
+  white-space: nowrap;
+}
+
+.post-card-category .category-separator {
+  color: #94a3b8;
+  font-size: 0.9em;
+}
+
+.post-card-category .category-part {
+  color: inherit;
+}
+
+.post-card-category.is-selected-child .category-child {
+  color: #52688f;
+  font-weight: 600;
+}
+
+.category-list-separator {
+  margin: 0 0.15em;
+  color: #94a3b8;
+}
+
 .post-card-meta [aria-hidden='true'] {
   color: #7b8794;
 }

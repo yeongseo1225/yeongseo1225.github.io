@@ -50,9 +50,10 @@ permalink: /categories/
             ></path>
             <path d="M3 10h18"></path>
           </svg>
-          {% for post_category in post.categories %} {% assign category_parts =
-          post_category | split: "/" %} {{ category_parts | last }}{% unless
-          forloop.last %}, {% endunless %} {% endfor %}
+          {% for post_category in post.categories %}{% assign category_parts = post_category | split: "/" %}
+          <span class="post-card-category" data-category="{{ post_category | escape }}">
+            {% for category_part in category_parts %}{% unless forloop.first %}<span class="category-separator" aria-hidden="true">›</span>{% endunless %}<span class="category-part{% if forloop.last and category_parts.size > 1 %} category-child{% endif %}">{{ category_part | escape }}</span>{% endfor %}
+          </span>{% unless forloop.last %}<span class="category-list-separator" aria-hidden="true">,</span>{% endunless %}{% endfor %}
         </span>
         {% endif %}
       </div>
@@ -92,6 +93,15 @@ permalink: /categories/
         sections.find((section) => section.id === selectedId)?.dataset
           .category ||
         '';
+
+      const selectedParts = selectedCategory.split('/');
+      const selectedChild = selectedParts.length > 1 ? selectedParts.slice(1).join('/') : '';
+      document.querySelectorAll('.post-card-category').forEach((category) => {
+        category.classList.toggle(
+          'is-selected-child',
+          Boolean(selectedChild) && category.dataset.category === selectedCategory,
+        );
+      });
 
       categoryLinks.forEach((link) => {
         const isSelected = link.dataset.category === selectedCategory;

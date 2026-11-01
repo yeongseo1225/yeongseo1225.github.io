@@ -90,7 +90,40 @@ function renderResults(rawQuery) {
       categoryIcon.setAttribute("viewBox", "0 0 24 24");
       categoryIcon.setAttribute("aria-hidden", "true");
       categoryIcon.innerHTML = '<path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="M3 10h18"></path>';
-      categories.append(categoryIcon, document.createTextNode(post.categories.join(", ")));
+      categories.append(categoryIcon);
+      post.categories.forEach((category, index) => {
+        const categoryNode = document.createElement("span");
+        categoryNode.className = "post-card-category";
+        categoryNode.dataset.category = category;
+
+        category.split("/").forEach((part, partIndex, parts) => {
+          if (partIndex > 0) {
+            const separator = document.createElement("span");
+            separator.className = "category-separator";
+            separator.setAttribute("aria-hidden", "true");
+            separator.textContent = "›";
+            categoryNode.append(separator);
+          }
+
+          const label = document.createElement("span");
+          label.className = "category-part";
+          if (partIndex === parts.length - 1 && parts.length > 1) {
+            label.classList.add("category-child");
+          }
+          label.textContent = part;
+          categoryNode.append(label);
+        });
+
+        if (index > 0) {
+          const separator = document.createElement("span");
+          separator.className = "category-list-separator";
+          separator.setAttribute("aria-hidden", "true");
+          separator.textContent = ",";
+          categories.append(separator);
+        }
+
+        categories.append(categoryNode);
+      });
       meta.append(categories);
     }
 
