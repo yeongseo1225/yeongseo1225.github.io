@@ -310,6 +310,7 @@ mark {
   font-size: 1.55rem;
   line-height: 1.4;
   letter-spacing: -0.025em;
+  font-weight: 600;
   text-indent: 0;
   padding-bottom: 0;
   border-bottom: 0;
@@ -552,16 +553,19 @@ body {
   font-size: 1.55rem;
   line-height: 1.4;
   letter-spacing: -0.025em;
+  font-weight: 600;
 }
 
 .post-card-title a {
   color: #304b9a;
   text-decoration: none;
+  transition: color 150ms ease;
 }
 
-.post-card-title a:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+.post-card-title a:hover,
+.post-card-title a:focus-visible {
+  color: #000;
+  text-decoration: none;
 }
 
 .search-result .post-card-title a,
@@ -662,6 +666,10 @@ body {
   }
 
   .post-card-title {
+    font-size: 1.3rem;
+  }
+
+  .post-content .search-result .post-card-title {
     font-size: 1.3rem;
   }
 
