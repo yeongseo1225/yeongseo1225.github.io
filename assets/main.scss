@@ -283,6 +283,14 @@ mark {
   margin-top: 0;
 }
 
+#search-status {
+  margin: 0 0 0.35rem;
+}
+
+.search-results:not(:empty) {
+  margin-top: 0.45rem;
+}
+
 .search-empty {
   color: #64748b;
 }
