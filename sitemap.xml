@@ -1,0 +1,19 @@
+---
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% for page in site.pages %}
+{% if page.path contains ".html" and page.url and page.url != "/404.html" %}
+  <url>
+    <loc>{{ site.sitemap_url }}{{ site.baseurl }}{{ page.url | xml_escape }}</loc>
+    {% if page.last_modified_at %}<lastmod>{{ page.last_modified_at | date_to_xmlschema }}</lastmod>{% endif %}
+  </url>
+{% endif %}
+{% endfor %}
+{% for post in site.posts %}
+  <url>
+    <loc>{{ site.sitemap_url }}{{ site.baseurl }}{{ post.url | xml_escape }}</loc>
+    <lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod>
+  </url>
+{% endfor %}
+</urlset>

@@ -19,8 +19,6 @@ kramdown:
 
 url: 'https://yeongseo1225.github.io'
 baseurl: ''
-
-plugins:
-  - jekyll-sitemap
+sitemap_url: 'https://yeongseo1225.github.io'
 
 timezone: Asia/Seoul
