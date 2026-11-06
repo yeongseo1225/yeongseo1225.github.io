@@ -17,12 +17,12 @@
   lightbox.innerHTML = `
     <div class="post-lightbox__panel">
       <button class="post-lightbox__close" type="button" aria-label="이미지 뷰어 닫기">×</button>
-      <button class="post-lightbox__nav post-lightbox__prev" type="button" aria-label="이전 이미지">‹</button>
+      <button class="post-lightbox__nav post-lightbox__prev" type="button" aria-label="이전 이미지"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <figure class="post-lightbox__figure">
         <img class="post-lightbox__image" alt="">
         <figcaption class="post-lightbox__caption"></figcaption>
       </figure>
-      <button class="post-lightbox__nav post-lightbox__next" type="button" aria-label="다음 이미지">›</button>
+      <button class="post-lightbox__nav post-lightbox__next" type="button" aria-label="다음 이미지"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <div class="post-lightbox__count" aria-live="polite"></div>
     </div>`;
   document.body.append(lightbox);
