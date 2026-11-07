@@ -17,45 +17,21 @@
   lightbox.innerHTML = `
     <div class="post-lightbox__panel">
       <button class="post-lightbox__close" type="button" aria-label="이미지 뷰어 닫기">×</button>
-      <button class="post-lightbox__nav post-lightbox__prev" type="button" aria-label="이전 이미지"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <figure class="post-lightbox__figure">
         <img class="post-lightbox__image" alt="">
-        <figcaption class="post-lightbox__caption"></figcaption>
       </figure>
-      <button class="post-lightbox__nav post-lightbox__next" type="button" aria-label="다음 이미지"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <div class="post-lightbox__count" aria-live="polite"></div>
     </div>`;
   document.body.append(lightbox);
 
   const viewerImage = lightbox.querySelector('.post-lightbox__image');
   const panel = lightbox.querySelector('.post-lightbox__panel');
   const closeButton = lightbox.querySelector('.post-lightbox__close');
-  const caption = lightbox.querySelector('.post-lightbox__caption');
-  const count = lightbox.querySelector('.post-lightbox__count');
-  const previousButton = lightbox.querySelector('.post-lightbox__prev');
-  const nextButton = lightbox.querySelector('.post-lightbox__next');
-  let currentIndex = 0;
   let returnFocusTo = null;
-  let touchStartX = null;
-
-  function preload(index) {
-    if (images.length < 2) return;
-    const nextImage = new Image();
-    nextImage.src = images[(index + images.length) % images.length].currentSrc || images[(index + images.length) % images.length].src;
-  }
 
   function showImage(index) {
-    currentIndex = (index + images.length) % images.length;
-    const source = images[currentIndex];
+    const source = images[index];
     viewerImage.src = source.currentSrc || source.src;
     viewerImage.alt = source.alt || '';
-    caption.textContent = source.alt || '';
-    count.textContent = `${currentIndex + 1} / ${images.length}`;
-    const multipleImages = images.length > 1;
-    previousButton.hidden = !multipleImages;
-    nextButton.hidden = !multipleImages;
-    preload(currentIndex + 1);
-    preload(currentIndex - 1);
   }
 
   function openImage(index) {
@@ -94,8 +70,6 @@
     event.stopPropagation();
     closeViewer();
   });
-  previousButton.addEventListener('click', () => showImage(currentIndex - 1));
-  nextButton.addEventListener('click', () => showImage(currentIndex + 1));
   lightbox.addEventListener('click', (event) => {
     if (event.target === lightbox || event.target === panel) closeViewer();
   });
@@ -106,32 +80,9 @@
       closeViewer();
       return;
     }
-    if (event.key === 'ArrowLeft' && images.length > 1) {
+    if (event.key === 'Tab') {
       event.preventDefault();
-      showImage(currentIndex - 1);
-    } else if (event.key === 'ArrowRight' && images.length > 1) {
-      event.preventDefault();
-      showImage(currentIndex + 1);
-    } else if (event.key === 'Tab') {
-      const controls = Array.from(lightbox.querySelectorAll('button:not([hidden])'));
-      const first = controls[0];
-      const last = controls[controls.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+      closeButton.focus();
     }
   });
-  lightbox.addEventListener('touchstart', (event) => {
-    touchStartX = event.changedTouches[0].clientX;
-  }, { passive: true });
-  lightbox.addEventListener('touchend', (event) => {
-    if (touchStartX === null || images.length < 2) return;
-    const distance = event.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(distance) > 48) showImage(currentIndex + (distance < 0 ? 1 : -1));
-    touchStartX = null;
-  }, { passive: true });
 })();
