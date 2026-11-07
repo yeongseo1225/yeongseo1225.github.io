@@ -508,7 +508,7 @@ body.post-lightbox-open {
   width: 100%;
   height: 100%;
   place-items: center;
-  padding: 56px 84px 64px;
+  padding: 72px 24px 24px;
 }
 
 .post-lightbox__figure {
@@ -523,32 +523,13 @@ body.post-lightbox-open {
 .post-lightbox__image {
   display: block;
   max-width: min(100%, 1400px);
-  max-height: calc(100vh - 140px);
-  max-height: min(82vh, 100dvh - 140px);
+  max-height: calc(100vh - 110px);
+  max-height: calc(100dvh - 110px);
   object-fit: contain;
   cursor: zoom-out;
 }
 
-.post-lightbox__caption {
-  max-width: min(80vw, 900px);
-  color: #e2e8f0;
-  font-size: 0.9rem;
-  line-height: 1.45;
-  text-align: center;
-}
-
-.post-lightbox__count {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  color: #e2e8f0;
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
-  transform: translateX(-50%);
-}
-
-.post-lightbox__close,
-.post-lightbox__nav {
+.post-lightbox__close {
   position: absolute;
   z-index: 2;
   display: grid;
@@ -565,14 +546,12 @@ body.post-lightbox-open {
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
-.post-lightbox__close:hover,
-.post-lightbox__nav:hover {
+.post-lightbox__close:hover {
   border-color: rgba(255, 255, 255, 0.65);
   background: rgba(55, 65, 81, 0.92);
 }
 
-.post-lightbox__close:focus-visible,
-.post-lightbox__nav:focus-visible {
+.post-lightbox__close:focus-visible {
   outline: 3px solid #93c5fd;
   outline-offset: 3px;
 }
@@ -584,68 +563,19 @@ body.post-lightbox-open {
   line-height: 1;
 }
 
-.post-lightbox__nav {
-  top: 50%;
-  width: 44px;
-  height: 72px;
-  border: 0;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.85);
-  background: transparent;
-  transform: translateY(-50%);
-  transition: color 150ms ease, background-color 150ms ease;
-}
-
-.post-lightbox__nav svg {
-  display: block;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
-}
-
-.post-lightbox__nav:hover {
-  border: 0;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.post-lightbox__prev {
-  left: 24px;
-}
-
-.post-lightbox__next {
-  right: 24px;
-}
-
-.post-lightbox__nav[hidden] {
-  display: none;
-}
-
 @media screen and (max-width: 700px) {
-  /* 좌우 화살표 칸(8px + 42px + 여백)을 비워 이미지를 가리지 않게 함 */
   .post-lightbox__panel {
-    padding: 68px 52px 76px;
+    padding: 68px 12px 16px;
   }
 
   .post-lightbox__image {
     max-width: 100%;
-    max-height: min(70vh, 100dvh - 150px);
+    max-height: calc(100dvh - 100px);
   }
 
   .post-lightbox__close {
     top: 12px;
     right: 12px;
-  }
-
-  .post-lightbox__prev {
-    left: 8px;
-  }
-
-  .post-lightbox__next {
-    right: 8px;
-  }
-
-  .post-lightbox__nav {
-    width: 40px;
-    height: 64px;
   }
 }
 
