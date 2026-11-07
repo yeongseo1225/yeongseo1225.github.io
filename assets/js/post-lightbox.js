@@ -71,7 +71,7 @@
     closeViewer();
   });
   lightbox.addEventListener('click', (event) => {
-    if (event.target === lightbox || event.target === panel) closeViewer();
+    if (event.target === lightbox || event.target === panel || event.target === viewerImage) closeViewer();
   });
   document.addEventListener('keydown', (event) => {
     if (lightbox.hidden) return;
