@@ -39,7 +39,7 @@ layout: default
     {% assign related_category = page.categories | first %}
     <section class="post-related" id="post-related" aria-label="다른 글">
       {% if related_category %}
-      {% assign category_posts = site.categories[related_category] | sort: "date" | reverse %}
+      {% assign category_posts = site.posts | where_exp: "post", "post.categories contains related_category" %}
       <div class="post-related-group" data-mode="category">
         <h2 class="post-related-title">
           <span>{{ related_category | replace: "/", " › " | escape }}</span> 카테고리의 글
