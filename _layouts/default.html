@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: 'en' }}">
   {% include head.html %}
-  <body>
-    {% include header.html %}
+  <body class="layout-{{ page.layout | default: 'page' }}">
+    <div class="app">
+      {% include sidebar.html %}
 
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper site-layout">
-        {% include sidebar.html %}
+      <div class="app-main">
+        {% include header.html %}
 
-        <div class="main-content{% if page.layout == 'post' %} main-content-post{% endif %}">
-          {{ content }}
-        </div>
+        <main class="page-content" aria-label="Content">
+          <div class="main-content{% if page.layout == 'post' %} main-content-post{% endif %}">
+            {{ content }}
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
 
-    {% include footer.html %}
+    <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
 
+    <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/sidebar.js' | relative_url }}" defer></script>
     <script data-goatcounter="https://yeongseo1225.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
   </body>

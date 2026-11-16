@@ -6,7 +6,10 @@ permalink: /categories/
 
 <header class="category-page-heading">
   <p class="category-page-breadcrumb" hidden></p>
-  <h1 class="category-page-title">카테고리</h1>
+  <div class="category-page-line">
+    <h1 class="category-page-title">카테고리</h1>
+    <span class="category-page-count"></span>
+  </div>
 </header>
 
 {% assign sorted_categories = site.categories | sort %}
@@ -30,7 +33,7 @@ permalink: /categories/
       </h3>
 
       <p class="post-card-excerpt">
-        {{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}
+        {% include post-summary.html post=post %}
       </p>
 
       <div class="post-card-meta">
@@ -190,6 +193,20 @@ permalink: /categories/
           sectionTitle.hidden = Boolean(selectedCategory);
         }
       });
+
+      const countEl = document.querySelector('.category-page-count');
+      if (countEl) {
+        const seen = new Set();
+        const scope = aggregateSection
+          ? [aggregateSection]
+          : sections.filter((section) => !section.hidden);
+        scope.forEach((root) =>
+          root.querySelectorAll('.post-card-title a').forEach((link) =>
+            seen.add(link.href),
+          ),
+        );
+        countEl.textContent = `글 ${seen.size}개`;
+      }
     }
 
     document.addEventListener('click', (event) => {
