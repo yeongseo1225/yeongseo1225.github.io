@@ -1250,6 +1250,45 @@ hr {
   font-weight: 600;
 }
 
+/* 글 아래 목록 페이지네이션 */
+.post-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 0.9rem;
+}
+
+.post-pager-btn {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.post-pager-btn:hover:not(:disabled):not(.is-active) {
+  background: var(--bg-soft);
+  color: var(--acc);
+}
+
+.post-pager-btn.is-active {
+  background: var(--acc-bg);
+  color: var(--acc);
+  font-weight: 600;
+}
+
+.post-pager-btn:disabled {
+  color: var(--sub);
+  opacity: 0.4;
+  cursor: default;
+}
+
 /* ===== 레이아웃: 왼쪽 고정 사이드바 + 본문 ===== */
 .app {
   display: flex;

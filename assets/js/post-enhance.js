@@ -101,16 +101,55 @@
       if (group) group.hidden = name !== mode;
     });
 
-    // 목록이 길면 지금 글 앞뒤로 다섯 개만 남긴다.
+    // 목록이 길면 다섯 개씩 페이지로 나누고, 지금 글이 있는 페이지부터 보여준다.
     const items = Array.from(groups[mode].querySelectorAll('li'));
     const size = 5;
-    if (items.length > size) {
-      const current = Math.max(0, items.findIndex((item) => item.classList.contains('is-current')));
-      const start = Math.min(Math.max(0, current - 2), items.length - size);
+    const pageCount = Math.ceil(items.length / size);
+    if (pageCount <= 1) return;
+
+    const currentIndex = Math.max(0, items.findIndex((item) => item.classList.contains('is-current')));
+    let page = Math.floor(currentIndex / size);
+
+    const nav = document.createElement('nav');
+    nav.className = 'post-pager';
+    nav.setAttribute('aria-label', '글 목록 페이지');
+    groups[mode].append(nav);
+
+    const makeButton = (label, text, onClick) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'post-pager-btn';
+      button.setAttribute('aria-label', label);
+      button.textContent = text;
+      button.addEventListener('click', onClick);
+      return button;
+    };
+
+    function render() {
       items.forEach((item, index) => {
-        item.hidden = index < start || index >= start + size;
+        item.hidden = Math.floor(index / size) !== page;
       });
+
+      nav.replaceChildren();
+      const prev = makeButton('이전 페이지', '‹', () => { page -= 1; render(); });
+      prev.disabled = page === 0;
+      nav.append(prev);
+
+      for (let i = 0; i < pageCount; i += 1) {
+        const button = makeButton(`${i + 1}페이지`, String(i + 1), () => { page = i; render(); });
+        if (i === page) {
+          button.classList.add('is-active');
+          button.setAttribute('aria-current', 'page');
+        }
+        nav.append(button);
+      }
+
+      const next = makeButton('다음 페이지', '›', () => { page += 1; render(); });
+      next.disabled = page === pageCount - 1;
+      nav.append(next);
     }
+
+    render();
   }
 
   function init() {
