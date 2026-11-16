@@ -58,6 +58,13 @@
     activeIndex = index;
 
     links.forEach((link, i) => link.classList.toggle("is-active", i === index));
+    if (index >= 0 && window.matchMedia("(min-width: 701px)").matches) {
+      const box = toc.getBoundingClientRect();
+      const rect = links[index].getBoundingClientRect();
+      if (rect.top < box.top + 40 || rect.bottom > box.bottom - 40) {
+        toc.scrollTop += rect.top - box.top - box.height / 3;
+      }
+    }
     if (current) current.textContent = index >= 0 ? links[index].textContent : "";
   }
 
