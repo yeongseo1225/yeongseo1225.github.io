@@ -1908,3 +1908,12 @@ html:not([data-sidebar='open']) .layout-post .page-content {
     padding-left: 1.5rem;
   }
 }
+
+/* 홈 목록 페이지네이션 */
+.post-card[hidden] {
+  display: none;
+}
+
+.home-pager {
+  margin-top: 1.75rem;
+}

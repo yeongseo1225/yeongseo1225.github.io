@@ -44,3 +44,5 @@ title: Home
     </article>
   {% endfor %}
 </div>
+
+<script src="{{ '/assets/js/home-pager.js' | relative_url }}" defer></script>
