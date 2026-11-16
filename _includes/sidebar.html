@@ -1,61 +1,93 @@
-<aside class="sidebar">
-  <h2>카테고리</h2>
+{%- assign category_names = "" | split: "" -%}
+{%- for category in site.categories -%}
+  {%- assign parts = category[0] | split: "/" -%}
+  {%- assign category_names = category_names | push: parts[0] -%}
+{%- endfor -%}
+{%- assign category_names = category_names | uniq | sort -%}
 
-  {% assign category_names = "" | split: "" %} {% for category in
-  site.categories %} {% assign parts = category[0] | split: "/" %} {% assign
-  category_names = category_names | push: parts[0] %} {% endfor %} {% assign
-  category_names = category_names | uniq | sort %}
+<aside class="sidebar" id="sidebar" aria-label="카테고리">
+  <a class="brand sidebar-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} 홈">
+    {% include logo.html %}
+  </a>
 
-  <ul class="category-tree">
-    {% for parent in category_names %} {% assign has_children = false %} {% for
-    category in site.categories %} {% assign parts = category[0] | split: "/" %}
-    {% if parts.size > 1 and parts[0] == parent %} {% assign has_children = true
-    %} {% endif %} {% endfor %} {% assign parent_post_urls = "" | split: "" %}
-    {% for category in site.categories %} {% assign parts = category[0] | split:
-    "/" %} {% if parts[0] == parent %} {% for post in category[1] %} {% assign
-    parent_post_urls = parent_post_urls | push: post.url %} {% endfor %} {%
-    endif %} {% endfor %} {% assign parent_post_count = parent_post_urls | uniq
-    | size %}
+  <div class="sidebar-head">
+    <span class="sidebar-label">카테고리</span>
+    <button class="sidebar-close" id="sidebar-close" type="button" aria-label="카테고리 닫기">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+    </button>
+  </div>
 
-    <li>
-      {% if has_children %}
-      <details open>
-        <summary>
+  <nav class="category-nav" aria-label="카테고리 목록">
+    <ul class="category-tree">
+      <li>
+        <a
+          class="category-link category-all{% if page.url == '/' %} is-selected{% endif %}"
+          href="{{ '/' | relative_url }}"
+          {% if page.url == '/' %}aria-current="page"{% endif %}
+        >
+          <span class="category-name">전체</span>
+          <span class="category-count">{{ site.posts.size }}</span>
+        </a>
+
+        <ul class="category-children">
+      {%- for parent in category_names -%}
+        {%- assign parent_urls = "" | split: "" -%}
+        {%- assign has_children = false -%}
+        {%- for category in site.categories -%}
+          {%- assign parts = category[0] | split: "/" -%}
+          {%- if parts[0] == parent -%}
+            {%- for post in category[1] -%}
+              {%- assign parent_urls = parent_urls | push: post.url -%}
+            {%- endfor -%}
+            {%- if parts.size > 1 -%}{%- assign has_children = true -%}{%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- assign parent_count = parent_urls | uniq | size -%}
+
+        {%- assign parent_selected = false -%}
+        {%- assign parent_active = false -%}
+        {%- for page_category in page.categories -%}
+          {%- assign page_parts = page_category | split: "/" -%}
+          {%- if page_parts[0] == parent -%}
+            {%- if page_parts.size == 1 -%}{%- assign parent_selected = true -%}{%- else -%}{%- assign parent_active = true -%}{%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        <li>
           <a
+            class="category-link{% if parent_selected %} is-selected{% endif %}{% if parent_active %} is-parent-active{% endif %}"
             href="{{ '/categories/' | relative_url }}#{{ parent | slugify }}"
             data-category="{{ parent | escape }}"
+            {% if parent_selected %}aria-current="page"{% endif %}
           >
-            {{ parent }}
-            <span>({{ parent_post_count }})</span>
+            <span class="category-name">{{ parent }}</span>
+            <span class="category-count">{{ parent_count }}</span>
           </a>
-        </summary>
 
-        <ul>
-          {% for category in site.categories %} {% assign parts = category[0] |
-          split: "/" %} {% if parts.size > 1 and parts[0] == parent %}
-          <li>
-            <a
-              href="{{ '/categories/' | relative_url }}#{{ category[0] | slugify }}"
-              data-category="{{ category[0] | escape }}"
-            >
-              {{ parts | shift | join: "/" }}
-              <span>({{ category[1].size }})</span>
-            </a>
-          </li>
-          {% endif %} {% endfor %}
+          {%- if has_children -%}
+          <ul class="category-children">
+            {%- for category in site.categories -%}
+              {%- assign parts = category[0] | split: "/" -%}
+              {%- if parts.size > 1 and parts[0] == parent -%}
+              <li>
+                <a
+                  class="category-link{% if page.categories contains category[0] %} is-selected{% endif %}"
+                  href="{{ '/categories/' | relative_url }}#{{ category[0] | slugify }}"
+                  data-category="{{ category[0] | escape }}"
+                  {% if page.categories contains category[0] %}aria-current="page"{% endif %}
+                >
+                  <span class="category-name">{{ parts | shift | join: "/" }}</span>
+                  <span class="category-count">{{ category[1].size }}</span>
+                </a>
+              </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
         </ul>
-      </details>
-      {% else %} {% for category in site.categories %} {% if category[0] ==
-      parent %}
-      <a
-        href="{{ '/categories/' | relative_url }}#{{ category[0] | slugify }}"
-        data-category="{{ category[0] | escape }}"
-      >
-        {{ parent }}
-        <span>({{ category[1].size }})</span>
-      </a>
-      {% endif %} {% endfor %} {% endif %}
-    </li>
-    {% endfor %}
-  </ul>
+      </li>
+    </ul>
+  </nav>
 </aside>

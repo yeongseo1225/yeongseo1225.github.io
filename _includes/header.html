@@ -1,19 +1,39 @@
-<header class="site-header" role="banner">
-  <div class="wrapper site-header-inner">
-    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+<header class="topbar" role="banner">
+  <div class="topbar-brand">
+    <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="카테고리 열기">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} 홈">
+      {% include logo.html %}
+    </a>
+  </div>
 
-    <form class="search-field site-header-search" id="search-form" action="{{ '/search/' | relative_url }}" method="get" role="search">
+  <form class="search-field topbar-search" id="search-form" action="{{ '/search/' | relative_url }}" method="get" role="search">
+    <label class="search-field-label" for="site-search" aria-label="블로그 검색">
       <svg class="search-field-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <circle cx="10.8" cy="10.8" r="6.8"></circle>
         <path d="m16 16 4.5 4.5"></path>
       </svg>
-      <input
-        id="site-search"
-        name="q"
-        type="search"
-        aria-label="블로그 검색"
-        autocomplete="off"
-      >
-    </form>
-  </div>
+    </label>
+    <input
+      id="site-search"
+      name="q"
+      type="search"
+      placeholder="검색"
+      autocomplete="off"
+    >
+  </form>
+
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="다크 모드 전환">
+    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z"></path>
+    </svg>
+    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"></path>
+    </svg>
+  </button>
 </header>
+{% if page.layout == 'post' %}
+<div class="read-progress" aria-hidden="true"><span id="read-progress-bar"></span></div>
+{% endif %}

@@ -1,0 +1,10 @@
+{%- comment -%} 소제목을 건너뛰고 본문에서 처음 나오는 글을 요약으로 쓴다. {%- endcomment -%}
+{%- assign _blocks = include.post.content | split: '</h' -%}
+{%- assign _summary = '' -%}
+{%- for _block in _blocks -%}
+  {%- if forloop.first -%}{%- assign _body = _block -%}{%- else -%}{%- assign _body = _block | remove_first: '1>' | remove_first: '2>' | remove_first: '3>' | remove_first: '4>' | remove_first: '5>' | remove_first: '6>' -%}{%- endif -%}
+  {%- assign _text = _body | split: '<h1' | first | split: '<h2' | first | split: '<h3' | first | split: '<h4' | first | split: '<h5' | first | split: '<h6' | first | strip_html | normalize_whitespace | strip -%}
+  {%- if _text != '' -%}{%- assign _summary = _text -%}{%- break -%}{%- endif -%}
+{%- endfor -%}
+{%- if _summary == '' -%}{%- assign _summary = include.post.excerpt | strip_html | normalize_whitespace | strip -%}{%- endif -%}
+{{- _summary | truncate: 160 -}}

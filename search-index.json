@@ -4,12 +4,13 @@ permalink: /search-index.json
 ---
 [
   {% for post in site.posts %}
+  {% capture post_summary %}{% include post-summary.html post=post %}{% endcapture %}
   {
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | relative_url | jsonify }},
     "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
     "display_date": {{ post.date | date: "%b %-d, %Y" | jsonify }},
-    "excerpt": {{ post.excerpt | strip_html | normalize_whitespace | jsonify }},
+    "excerpt": {{ post_summary | jsonify }},
     "content": {{ post.content | strip_html | jsonify }},
     "tags": {{ post.tags | jsonify }},
     "categories": {{ post.categories | jsonify }}

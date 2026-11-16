@@ -21,7 +21,7 @@ layout: default
             <path d="M3 7a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <path d="M3 10h18"></path>
           </svg>
-          {{ page.categories | join: ", " }}
+          {{ page.categories | join: ", " | replace: "/", " › " }}
         </span>
         {% endif %}
       </div>
@@ -35,11 +35,53 @@ layout: default
     </header>
 
     <div class="post-content">{{ content }}</div>
+
+    {% assign related_category = page.categories | first %}
+    <section class="post-related" id="post-related" aria-label="다른 글">
+      {% if related_category %}
+      {% assign category_posts = site.categories[related_category] | sort: "date" | reverse %}
+      <div class="post-related-group" data-mode="category">
+        <h2 class="post-related-title">
+          <span>{{ related_category | replace: "/", " › " | escape }}</span> 카테고리의 글
+        </h2>
+        <ul class="post-related-list">
+          {% for post in category_posts %}
+          <li{% if post.url == page.url %} class="is-current"{% endif %}>
+            <a href="{{ post.url | relative_url }}"{% if post.url == page.url %} aria-current="page"{% endif %}>
+              <span class="post-related-name">{{ post.title | escape }}</span>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="post-related-group" data-mode="latest"{% if related_category %} hidden{% endif %}>
+        <h2 class="post-related-title">최신 글</h2>
+        <ul class="post-related-list">
+          {% for post in site.posts %}
+          <li{% if post.url == page.url %} class="is-current"{% endif %}>
+            <a href="{{ post.url | relative_url }}"{% if post.url == page.url %} aria-current="page"{% endif %}>
+              <span class="post-related-name">{{ post.title | escape }}</span>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
   </article>
 
   <aside class="post-toc" id="post-toc" aria-label="글 목차" hidden>
-    <h2>목차</h2>
-    <nav aria-label="본문 소제목">
+    <button class="post-toc-toggle" id="post-toc-toggle" type="button" aria-expanded="false" aria-controls="post-toc-nav">
+      <span class="post-toc-label">목차</span>
+      <span class="post-toc-current" id="post-toc-current"></span>
+      <svg class="post-toc-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
+    </button>
+    <nav id="post-toc-nav" aria-label="본문 소제목">
       <ul id="post-toc-list"></ul>
     </nav>
   </aside>
@@ -51,3 +93,4 @@ layout: default
 <script src="{{ '/assets/js/post-toc.js' | relative_url }}" defer></script>
 <script src="{{ '/assets/js/post-format.js' | relative_url }}" defer></script>
 <script src="{{ '/assets/js/post-lightbox.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/post-enhance.js' | relative_url }}" defer></script>

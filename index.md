@@ -3,6 +3,11 @@ layout: default
 title: Home
 ---
 
+<div class="list-heading">
+  <span class="list-heading-title">전체</span>
+  <span class="list-heading-count">글 {{ site.posts.size }}개</span>
+</div>
+
 <div class="post-list home-post-list">
   {% for post in site.posts %}
     <article class="post-card">
@@ -11,7 +16,7 @@ title: Home
       </h2>
 
       <p class="post-card-excerpt">
-        {{ post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}
+        {% include post-summary.html post=post %}
       </p>
 
       <div class="post-card-meta">

@@ -42,4 +42,47 @@
   });
 
   toc.hidden = false;
+
+  // 읽고 있는 섹션을 목차에 표시하고, 모바일에서는 목차를 접었다 편다.
+  const links = Array.from(list.querySelectorAll("a"));
+  const toggle = document.querySelector("#post-toc-toggle");
+  const current = document.querySelector("#post-toc-current");
+  let activeIndex = -1;
+
+  function updateActive() {
+    let index = -1;
+    headings.forEach((heading, i) => {
+      if (heading.getBoundingClientRect().top <= 120) index = i;
+    });
+    if (index === activeIndex) return;
+    activeIndex = index;
+
+    links.forEach((link, i) => link.classList.toggle("is-active", i === index));
+    if (current) current.textContent = index >= 0 ? links[index].textContent : "";
+  }
+
+  let ticking = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        updateActive();
+      });
+    },
+    { passive: true },
+  );
+  updateActive();
+
+  function setOpen(open) {
+    toc.classList.toggle("is-open", open);
+    toggle?.setAttribute("aria-expanded", String(open));
+  }
+
+  toggle?.addEventListener("click", () => setOpen(!toc.classList.contains("is-open")));
+  list.addEventListener("click", (event) => {
+    if (event.target.closest("a")) setOpen(false);
+  });
 })();
